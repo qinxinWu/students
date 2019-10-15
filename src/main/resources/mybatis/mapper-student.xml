@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pku.qingxin.students.dao.StudentDao" >
+
+    <select id="selectStudents" resultType="pku.qingxin.students.bean.Student">
+        SELECT * from student WHERE status=1
+    </select>
+
+    <select id="selectStudent" resultType="pku.qingxin.students.bean.Student">
+        SELECT * from student WHERE status=1 AND num=#{num}
+    </select>
+
+
+    <update id="deleteStudent">
+        UPDATE student SET status=0 WHERE num=#{num}
+    </update>
+
+    <update id="updateStudent">
+        UPDATE student SET name=#{name},cls=#{cls},age=#{age},gender=#{gender} WHERE num=#{num}
+    </update>
+
+    <insert id="insertStudent">
+        INSERT into student(num,name,cls,age,gender,status) VALUES(#{num},#{name},#{cls},#{age},#{gender},1)
+    </insert>
+
+
+
+
+
+
+</mapper>
