@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pku.qingxin.students.bean.Student;
+import pku.qingxin.students.bean.User;
 import pku.qingxin.students.service.StudentService;
 
 import java.util.List;
@@ -73,6 +75,40 @@ public class StudentController {
         model.addAttribute("student",student);
 
         return "edit";
+    }
+
+    //检查学生学号是否存在（添加用）
+    @ResponseBody
+    @RequestMapping("/checkStudent")
+    public String checkStudent(String num){
+        //System.out.print(username);
+
+        Student student=studentService.selectStudent(num);
+
+        //System.out.print(user);
+
+        String check="0";
+        if (student==null){
+            check="1";
+        }
+        return check;
+    }
+
+    //检查学生学号是否存在(编辑用)
+    @ResponseBody
+    @RequestMapping("/editPage/checkStudent")
+    public String checkStudent2(String num){
+        //System.out.print(username);
+
+        Student student=studentService.selectStudent(num);
+
+        //System.out.print(user);
+
+        String check="0";
+        if (student==null){
+            check="1";
+        }
+        return check;
     }
 
 

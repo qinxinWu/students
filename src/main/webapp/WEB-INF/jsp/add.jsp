@@ -19,6 +19,111 @@
 
         <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                    var numFlag=false;
+                    var nameFlag=false;
+                    var clsFlag=false;
+                    var ageFlag=false;
+                    var genderFlag=false;
+
+
+                $("#iName").blur(function () {
+                        var name=$("#iName").val();
+
+                        if(name!=null&&name!=""){
+                            nameFlag=true;
+                            $("#name_span").html("");
+                        }else{
+                            $("#name_span").html("名字为空，请输入！");
+                            nameFlag=false;
+                        }
+                    })
+                $("#iCls").blur(function () {
+                    var cls=$("#iCls").val();
+
+                    if(cls!=null&&cls!=""){
+                        clsFlag=true;
+                        $("#cls_span").html("");
+                    }else{
+                        $("#cls_span").html("班级为空，请输入！");
+                        clsFlag=false;
+                    }
+                })
+
+                $("#iAge").blur(function () {
+                    var age=$("#iAge").val();
+
+                    if(age!=null&&age!=""){
+                        ageFlag=true;
+                        $("#age_span").html("");
+                    }else{
+                        $("#age_span").html("年龄为空，请输入！");
+                        ageFlag=false;
+                    }
+                })
+
+                $("#iGender").blur(function () {
+                    var gender=$("#iGender").val();
+
+                    if(gender!=null&&gender!=""){
+                        genderFlag=true;
+                        $("#gender_span").html("");
+                    }else{
+                        $("#gender_span").html("性别为空，请输入！");
+                        genderFlag=false;
+                    }
+                })
+
+
+
+
+
+                    $("#iNum").blur(function () {
+                        var num=$("#iNum").val();
+
+                        $.ajax({
+                            url:"checkStudent",
+                            type:"post",
+                            data:"num="+num,
+                            dataType:"json",
+                            success:function (data) {
+                                if(data=="1"){
+                                    numFlag=true;
+                                    $("#num_span").html("");
+                                }else{
+                                    numFlag=false;
+                                    $("#num_span").html("学号已存在,请更换！");
+                                }
+
+                            }
+
+
+                        })
+
+                    })
+
+
+                    $("form").submit(function () {
+                        if(numFlag&&nameFlag&&clsFlag&&ageFlag&&genderFlag){
+                            return true;
+                        }else{
+                            return false;
+                        }
+
+                    })
+
+
+                }
+            );
+
+
+
+        </script>
+
+
+
 
     </head>
 
@@ -106,8 +211,8 @@
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                                    <img class="img-profile rounded-circle" src="img/2.jpg">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">点击登出</span>
+
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -144,15 +249,15 @@
                                     <center>
                                         <div class="card-body" >
                                             <form action="add" method="post">
-                                                <center><div>学号：<input type="text"  name="num" placeholder="例如：1901210688"/></div></center>
+                                                <center><div>学号：<input type="text" id="iNum" name="num" placeholder="例如：1901210688"/></div><span style="color: red" id="num_span"></span></center>
                                                 <br />
-                                                <center><div>姓名：<input type="text"  name="name" placeholder="例如：小新"/></div></center>
+                                                <center><div>姓名：<input type="text" id="iName" name="name" placeholder="例如：小新"/></div><span style="color: red" id="name_span"></span></center>
                                                 <br />
-                                                <center><div>班级：<input type="text"  name="cls" placeholder="例如：5年1班"/></div></center>
+                                                <center><div>班级：<input type="text" id="iCls" name="cls" placeholder="例如：5年1班"/></div><span style="color: red" id="cls_span"></span></center>
                                                 <br />
-                                                <center><div>年龄：<input type="text"  name="age" placeholder="例如：9"/></div></center>
+                                                <center><div>年龄：<input type="text" id="iAge" name="age" placeholder="例如：9"/></div><span style="color: red" id="age_span"></span></center>
                                                 <br />
-                                                <center><div>性别：<input type="text"  name="gender" placeholder="例如：男"/></div></center>
+                                                <center><div>性别：<input type="text" id="iGender" name="gender" placeholder="例如：男"/></div><span style="color: red" id="gender_span"></span></center>
                                                 <br />
                                                 <center><input type="submit" value="提交" style="color: blue;"></center>
 
@@ -208,7 +313,7 @@
                     <div class="modal-body">确定退出点击登出按钮，取消退出点击取消按钮。</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                        <a class="btn btn-primary" href="login.html">登出</a>
+                        <a class="btn btn-primary" href="/login.jsp">登出</a>
                     </div>
                 </div>
             </div>
